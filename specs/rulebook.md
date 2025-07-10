@@ -1,29 +1,31 @@
-Emergence Rulebook v0.1 — Draft
+# Emergence Rulebook v0.1 — *Draft*
 
-Status: 🚧 Draft v0.1 (public review)
-Last updated: 2025-07-10
-License: MIT (see LICENSE)
+> **Status:** 🚧 Draft v0.1 (public review)  
+> **Last updated:** 2025-07-10  
+> **License:** MIT (see `LICENSE`)
 
-This document defines the minimal message format and starter verbs that let any two Emergence agents discover one another and cooperate. Everything else—registries, billing, hosting—will be layered on top of these rules.
+This document defines the **minimal message format** and **starter verbs** that let any two *Emergence* agents discover one another and cooperate. Everything else—registries, billing, hosting—will be layered on top of these rules.
 
-⸻
+---
 
-1 · Message Envelope
+## 1 · Message Envelope
 
-Every packet travelling on Emergence is a single JSON object with exactly five keys:
+Every packet travelling on Emergence is a **single JSON object** with **exactly five keys**:
 
-Key	Type (example)	Required	Purpose
-id	"550e8400-e29b-41d4-a716-446655440000"	✔	Correlates request and response (UUID v4).
-from	"agent_b_7df3"	✔	Sender’s agent-ID.
-to	"agent_a_912c" or "broadcast"	✔	Receiver’s agent-ID.
-verb	"HELP"	✔	Action code — see § 2.
-data	{ … }	✔ (may be empty)	Payload specific to the verb.
+| Key   | Type (example) | Required | Purpose |
+|-------|----------------|----------|---------|
+| `id`  | `"550e8400-e29b-41d4-a716-446655440000"` | ✔ | Correlates request and response (UUID v4). |
+| `from`| `"agent_b_7df3"`                    | ✔ | Sender’s agent-ID. |
+| `to`  | `"agent_a_912c"` or `"broadcast"`  | ✔ | Receiver’s agent-ID. |
+| `verb`| `"HELP"`                            | ✔ | Action code — see § 2. |
+| `data`| `{ … }`                             | ✔ (may be empty) | Payload specific to the verb. |
 
-No extra keys unless they start with _x_ (reserved for extensions).
-Content-Type: application/json; charset=utf-8
+> **No extra keys** unless they start with `_x_` (reserved for extensions).  
+> **Content-Type:** `application/json; charset=utf-8`
 
-Example
+**Example**
 
+```jsonc
 {
   "id":   "550e8400-e29b-41d4-a716-446655440000",
   "from": "agent_b_7df3",
@@ -37,8 +39,8 @@ Example
 
 2 · Core Verbs
 
-Verb	Typical Sender → Receiver	Example data	Meaning
-HELLO	any ↔ any	{ "capabilities": ["translate", "summarize"] }	“I’m online; here’s what I can do.”
+Verb	Typical Sender → Receiver	Typical data example	Meaning
+HELLO	any ↔ any	{ "capabilities": ["translate","summarize"] }	“I’m online; here’s what I can do.”
 HELP	caller → worker	task-specific	“Please perform this work.”
 DONE	worker → caller	{ "result": … }	Task finished successfully.
 ERROR	any → any	{ "code": 429, "msg": "Upstream quota exceeded" }	Something went wrong.
@@ -73,7 +75,7 @@ TLS (or gRPC’s built-in TLS) is mandatory; clear-text traffic is disallowed.
   }
 }
 
-2 · Successful Response (Agent A → Agent B)
+2 · Successful response (Agent A → Agent B)
 
 {
   "id":   "77f7b6d2-5e44-4a71-9bcb-5ddc21019f24",
@@ -85,7 +87,7 @@ TLS (or gRPC’s built-in TLS) is mandatory; clear-text traffic is disallowed.
   }
 }
 
-3 · Error Response
+3 · Error response
 
 {
   "id":   "77f7b6d2-5e44-4a71-9bcb-5ddc21019f24",
@@ -122,3 +124,4 @@ All changes require at least one approved review per branch-protection rules.
 ⸻
 
 © 2025 Emergence contributors — Released under the MIT License
+
