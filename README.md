@@ -62,4 +62,6 @@ See `LICENSE` for full text.
 
 ---
 
+<p align="center"> <a href="https://imgur.com/OfnRPAR"> 🎥 Watch a 60‑sec demo ↗ </a> </p> <p align="center"> <img src="https://i.imgur.com/OfnRPAR.gif" alt="Emergence CLI demo" width="700"/> </p>
+
 _© 2025 Emergence contributors_
