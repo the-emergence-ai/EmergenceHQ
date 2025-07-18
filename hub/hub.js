@@ -28,7 +28,7 @@ function rowHTML(a) {
         new Date(a.last_ping).toLocaleString() : 
         'Never';
 
-    const quality = a.status === "healthy" ? "✓" : "✗";
+    const quality = a.quality === "pass" ? "✅" : "❌";
 
     const curl = `docker pull ${a.image} && echo '{"id":"1","from":"hub","to":"${a.name}","verb":"HELP","data":{"prompt":"ping"}}' | docker run -i --rm ${a.image}`;
     

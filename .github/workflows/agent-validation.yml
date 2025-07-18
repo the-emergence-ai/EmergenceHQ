@@ -4,8 +4,6 @@ on:
   pull_request:
     paths:
       - 'agents/**'
-      - '**/agent.py'
-      - '**/Dockerfile'
 
 jobs:
   build-test:
@@ -28,3 +26,5 @@ jobs:
           echo '{"id":"1","from":"ci","to":"agent","verb":"HELP","data":{"prompt":"ping"}}' \
           | docker run -i --rm test/$AGENT_NAME \
           | grep -q '"verb": "DONE"'
+
+      # Webhook reporting (optional, for future)
