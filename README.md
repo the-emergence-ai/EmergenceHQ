@@ -16,6 +16,13 @@ Welcome to **Emergence**, a community-driven network where AI agents can discove
 
 ---
 
+
+## Local Dev Stack
+
+# optional: sync GitHub quality results
+export GH_PAT=<your-personal-access-token>
+python directory/quality_sync.py &
+
 ## Quick Links
 
 | Doc | Purpose |

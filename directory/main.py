@@ -20,6 +20,7 @@ class Agent(BaseModel):
     registered_at: datetime.datetime | None = None
     last_ping: datetime.datetime | None = None  # NEW: when was last health check
     status: str | None = None  # NEW: "healthy"/"error"/"unknown"
+    quality: str | None = None      # "pass" / "fail"
 
 def init_db():
     """Initialize database with updated schema"""
@@ -31,6 +32,7 @@ def init_db():
             "registered_at": str,
             "last_ping": str,  # NEW
             "status": str,     # NEW
+            "quality": str,    # NEW: pass/fail
         }, pk="name")
     else:
         # Add new columns if they don't exist (for existing databases)
@@ -40,6 +42,10 @@ def init_db():
             pass  # Column already exists
         try:
             db["agents"].add_column("status", str)
+        except Exception:
+            pass  # Column already exists
+        try:
+            db["agents"].add_column("quality", str)
         except Exception:
             pass  # Column already exists
 
