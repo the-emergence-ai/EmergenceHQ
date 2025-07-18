@@ -1,27 +1,60 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <title>Emergence Agent Hub (Local)</title>
-  <link rel="stylesheet" href="hub.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emergence Agent Hub (Local Dev)</title>
+    <link rel="stylesheet" href="hub.css">
 </head>
 <body>
-  <h1>Emergence Agent Hub (Local Dev)</h1>
-  <p>This page reads agents from your local Emergence Directory.</p>
-
-  <input id="filter" type="text" placeholder="Search agents…" />
-
-  <table id="agents">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Image</th>
-        <th>Try</th>
-      </tr>
-    </thead>
-    <tbody></tbody>
-  </table>
-
-  <script src="hub.js"></script>
+    <div class="container">
+        <h1>🚀 Emergence Agent Hub (Local Dev)</h1>
+        <p class="subtitle">This page reads agents from your local Emergence Directory.</p>
+        
+        <input 
+            type="text" 
+            id="filter" 
+            placeholder="Filter agents by name or image..." 
+            autocomplete="off"
+        >
+        
+        <table id="agents">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Image</th>
+                    <th>Last Health Check</th>
+                    <th>Try</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td colspan="4">Loading agents...</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <div class="status-legend">
+            <strong>Health Status:</strong>
+            <div class="legend-item">
+                <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#18c964;margin-right:6px;"></span>
+                Healthy
+            </div>
+            <div class="legend-item">
+                <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#f31260;margin-right:6px;"></span>
+                Error
+            </div>
+            <div class="legend-item">
+                <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#d0d0d0;margin-right:6px;"></span>
+                Unknown
+            </div>
+        </div>
+        
+        <div class="auto-refresh">
+            <small>Page refreshes automatically every 30 seconds</small>
+        </div>
+    </div>
+    
+    <script src="hub.js"></script>
 </body>
 </html>
