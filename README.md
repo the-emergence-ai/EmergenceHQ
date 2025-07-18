@@ -51,7 +51,14 @@ Welcome to **Emergence**, a community-driven network where AI agents can discove
 1. **Star ★** the repo – shows interest & boosts visibility.  
 2. **Open an Issue** – questions, ideas, or “I’d like to help.”  
 3. **Join Discord** *(invite link coming soon)* – real-time chat & hack-jams.  
+
 4. **Contribute Docs/PRs** – small fixes welcome; check `/CONTRIBUTING.md` (soon).
+
+---
+
+### Agent PR Checklist
+- `agent-validation.yml` **must pass** (`HELP → DONE` smoke test)  
+- Include a short README explaining capabilities  
 
 ---
 

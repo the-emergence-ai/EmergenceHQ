@@ -1,0 +1,30 @@
+name: Agent Validation
+
+on:
+  pull_request:
+    paths:
+      - 'agents/**'
+      - '**/agent.py'
+      - '**/Dockerfile'
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python & build deps
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Build agent image
+        run: |
+          AGENT_NAME=$(basename ${{ github.head_ref || github.ref_name }})
+          docker build -t test/$AGENT_NAME -f $(git ls-files | grep -m1 'Dockerfile') .
+
+      - name: Run smoke HELP → DONE test
+        run: |
+          echo '{"id":"1","from":"ci","to":"agent","verb":"HELP","data":{"prompt":"ping"}}' \
+          | docker run -i --rm test/$AGENT_NAME \
+          | grep -q '"verb": "DONE"'

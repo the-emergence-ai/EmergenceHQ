@@ -9,7 +9,7 @@ async function loadAgents() {
         render(agents);
         filterInput.addEventListener('input', () => render(agents, filterInput.value));
     } catch (err) {
-        tbody.innerHTML = `<tr><td colspan="4">Directory unavailable</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="5">Directory unavailable</td></tr>`;
     }
 }
 
@@ -19,7 +19,7 @@ function render(list, filter='') {
         .filter(a => a.name.toLowerCase().includes(f) || a.image.toLowerCase().includes(f))
         .map(a => rowHTML(a))
         .join('');
-    tbody.innerHTML = rows || `<tr><td colspan="4">(no matches)</td></tr>`;
+    tbody.innerHTML = rows || `<tr><td colspan="5">(no matches)</td></tr>`;
 }
 
 function rowHTML(a) {
@@ -27,13 +27,16 @@ function rowHTML(a) {
     const lastPing = a.last_ping ? 
         new Date(a.last_ping).toLocaleString() : 
         'Never';
-    
+
+    const quality = a.status === "healthy" ? "✓" : "✗";
+
     const curl = `docker pull ${a.image} && echo '{"id":"1","from":"hub","to":"${a.name}","verb":"HELP","data":{"prompt":"ping"}}' | docker run -i --rm ${a.image}`;
     
     return `
         <tr>
             <td>${statusDot} ${a.name}</td>
             <td><code>${a.image}</code></td>
+            <td style="text-align:center">${quality}</td>
             <td>${lastPing}</td>
             <td>
                 <button onclick="copyCmd('${escapeQuotes(curl)}')">Copy Test Command</button>
