@@ -4,8 +4,6 @@ on:
   pull_request:
     paths:
       - 'agents/**'
-      - '**/agent.py'
-      - '**/Dockerfile'
 
 jobs:
   build-test:
@@ -23,19 +21,10 @@ jobs:
           AGENT_NAME=$(basename ${{ github.head_ref || github.ref_name }})
           docker build -t test/$AGENT_NAME -f $(git ls-files | grep -m1 'Dockerfile') .
 
-
       - name: Run smoke HELP → DONE test
         run: |
           echo '{"id":"1","from":"ci","to":"agent","verb":"HELP","data":{"prompt":"ping"}}' \
           | docker run -i --rm test/$AGENT_NAME \
           | grep -q '"verb": "DONE"'
 
-      # - name: Report result to Directory
-      #   if: ${{ always() }}            # run even on failure
-      #   env:
-      #     STATUS: ${{ job.status }}    # 'success' / 'failure'
-      #   run: |
-      #     AGENT_NAME=$(basename ${{ github.head_ref || github.ref_name }})
-      #     curl -X PATCH -H "Content-Type: application/json" \
-      #       -d "{\"quality\": \"${STATUS}\"}" \
-      #       http://127.0.0.1:8000/agents/$AGENT_NAME || true
+      # Webhook reporting (optional, for future)
